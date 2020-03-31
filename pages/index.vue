@@ -13,3 +13,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .container {
+    background-color: red;
+  }
+</style>
