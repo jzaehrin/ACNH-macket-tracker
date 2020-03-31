@@ -35,8 +35,8 @@
         } else {
           this.$axios.$get('/api/identity').then((response) => {
             this.$cookies.setAll([
-              {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: 360}},
-              {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: 360}},
+              {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+              {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
             ])
           })
         }
