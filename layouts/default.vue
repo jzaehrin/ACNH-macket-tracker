@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="flex items-center justify-between flex-wrap bg-black p-6">
+    <nav class="flex items-center justify-between flex-wrap bg-black p-6 mb-6">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <nuxt-link to="/">
           <img src="~/assets/images/logo.png" alt="" width="250">

@@ -38,7 +38,10 @@ router.post('/', async (req, res) => {
     if(error.name === 'SequelizeUniqueConstraintError')
       res.status(403).send({message: "You cannot modify your previous sample"});
     else
-      res.status(500).send({message: "Unexpected error"});
+      res.status(500).send("Unexpected error");
+  } catch(error) {
+    if(error.name === 'SequelizeUniqueConstraintError')
+      res.status(403).send("You cannot modify your previous sample");
     return
   }
 
