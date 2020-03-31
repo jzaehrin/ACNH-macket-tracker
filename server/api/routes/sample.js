@@ -1,4 +1,7 @@
-app.post('/', async (req, res) => {
+const express = require('express')
+const router = express.Router()
+
+router.post('/', async (req, res) => {
   let user
 
   try {
@@ -40,3 +43,5 @@ app.post('/', async (req, res) => {
     return
   }
 });
+
+module.exports = router;
