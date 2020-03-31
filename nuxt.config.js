@@ -28,6 +28,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/axios.js',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -59,4 +60,4 @@ module.exports = {
     extend (config, ctx) {
     }
   }
-}
+};
