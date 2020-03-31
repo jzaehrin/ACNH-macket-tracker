@@ -3,6 +3,9 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
+const adminRoutes = require('./routes/admin')
+const db = require('./db')
+
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
@@ -18,10 +21,14 @@ async function start () {
   if (config.dev) {
     const builder = new Builder(nuxt)
     await builder.build()
-  }
+}
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
+
+  app.use(express.json())
+
+  app.use('/admin', adminRoutes)
 
   // Listen the server
   app.listen(port, host)
