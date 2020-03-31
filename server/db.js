@@ -1,10 +1,13 @@
+
 const Sequelize = require('sequelize')
 
 let db = {}
 
-const sequelize = new Sequelize('acnh_market_tracker', 'dbacnh_market_tracker', 'dbacnh_market_trackerpw', {
+require('dotenv').config();
+
+const sequelize = new Sequelize('acnh_market_tracker', process.env.DB_USER, process.env.DB_PASSWORD, {
   host: 'localhost',
-  dialect: 'mariadb',
+  dialect: process.env.DB_TYPE,
 
   pool: {
     max: 5,
