@@ -58,6 +58,10 @@ module.exports = {
   /*
   ** Build configuration
   */
+  server: {
+    port: 3001,
+    host: '0.0.0.0'
+  },
   build: {
     /*
     ** You can extend webpack config here
