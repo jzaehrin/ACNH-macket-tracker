@@ -23,6 +23,33 @@
   </div>
 </template>
 
+<script>
+  export default {
+    methods: {
+      init() {
+        if(this.$cookies.get('acnh-uuid')) {
+          let uuid = this.$cookies.get('acnh-uuid');
+          let data = { uuid: uuid };
+          this.$axios.$post('/api/valid', data).then((response) => {
+            console.log("Connected");
+          })
+        } else {
+          this.$axios.$get('/api/identity').then((response) => {
+            this.$cookies.setAll([
+              {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: 360}},
+              {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: 360}},
+            ])
+          })
+        }
+      }
+    },
+    mounted() {
+      this.init()
+    }
+  }
+</script>
+
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
