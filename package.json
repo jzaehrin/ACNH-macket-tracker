@@ -1,26 +1,23 @@
 {
-  "name": "acnh-macket-tracker",
+  "name": "ACNH-market-tracker",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "My impressive Nuxt.js project",
+  "author": "Célien Heritier",
+  "private": true,
   "scripts": {
-    "start": "node index.js"
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jzaehrin/ACNH-macket-tracker.git"
-  },
-  "author": "Jonathan Zaehringer",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jzaehrin/ACNH-macket-tracker/issues"
-  },
-  "homepage": "https://github.com/jzaehrin/ACNH-macket-tracker#readme",
   "dependencies": {
-    "ejs": "^3.0.2",
-    "express": "^4.17.1",
-    "mariadb": "^2.3.1",
-    "sequelize": "^5.21.5",
-    "uuid": "^7.0.2"
+    "nuxt": "^2.0.0",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "@nuxtjs/axios": "^5.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "@nuxtjs/tailwindcss": "^1.0.0"
   }
 }
