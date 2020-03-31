@@ -22,7 +22,7 @@
     methods: {
       postForm: function(e) {
         e.preventDefault();
-        this.$axios.$post("/admin/createUser").then((data) => {
+        this.$axios.$post("/api/admin/createUser").then((data) => {
           console.log(data);
         });
 

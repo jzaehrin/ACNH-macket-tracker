@@ -43,6 +43,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    'cookie-universal-nuxt'
   ],
   /*
   ** Axios module configuration
@@ -52,6 +53,7 @@ module.exports = {
   },
 
   serverMiddleware: ['~/server/api/index.js'],
+  //middleware: ['~/middleware/auth.js'],
   /*
   ** Build configuration
   */
