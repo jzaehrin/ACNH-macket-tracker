@@ -66,7 +66,7 @@ app.post('/add', function (req, res) {
     }
   }).then((user) => {
     if(user === null) {
-      res.send(403, "You do not have rights to create a sample");
+      res.status(403).send("You do not have rights to create a sample");
       return;
     }
 
@@ -80,10 +80,10 @@ app.post('/add', function (req, res) {
       date: date,
       amount: req.body.amount
     }).then((sample) => {
-      res.send(200, "Sample correctly saved");
+      res.status(200).send("Sample correctly saved");
     }).catch((error) => {
       if(error.name === 'SequelizeUniqueConstraintError')
-        res.send(403, "You cannot modify your previous sample");
+        res.status(403).send("You cannot modify your previous sample");
     });
   })
 });
@@ -103,11 +103,11 @@ app.post('/createUser', function (req, res) {
         uuid: uuid,
         fakeUuid: uuidv4()
       }).then((user) => {
-        res.send(200, user.uuid);
+        res.status(200).send(user.uuid);
       });
 
     } else {
-      res.send(403,"You do not have rights to create a user");
+      res.status(403).send("You do not have rights to create a user");
     }
   })
 });
