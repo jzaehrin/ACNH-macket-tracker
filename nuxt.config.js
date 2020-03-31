@@ -51,7 +51,7 @@ module.exports = {
   axios: {
   },
 
-  serverMiddleware: ['~/api/index.js'],
+  serverMiddleware: ['~/server/api/index.js'],
   /*
   ** Build configuration
   */
