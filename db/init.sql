@@ -1,7 +1,7 @@
 DROP USER IF EXISTS dbacnh_market_tracker;
 CREATE USER dbacnh_market_tracker IDENTIFIED BY 'dbacnh_market_trackerpw';
 
-DROP DATABASE IF EXISTS dbacnh_market_tracker;
+DROP DATABASE IF EXISTS acnh_market_tracker;
 CREATE DATABASE acnh_market_tracker;
 
 USE acnh_market_tracker;
