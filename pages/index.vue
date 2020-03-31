@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto px-4">
-    <form @submit="postSample">
+    <!--form >
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-amout">
@@ -21,13 +21,80 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-date">
             Date
           </label>
-          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-date"  type="date" v-model="sample.date" min="30" max="1000">
+            <v-text-field
+              v-model="sample.date"
+              label="Picker in menu"
+              prepend-icon="event"
+              readonly
+              v-on="on"
+            ></v-text-field>
+          <v-date-picker v-model="sample.date" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+            <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+          </v-date-picker>
         </div>
         <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
           <input type="submit" class="shadow bg-grey-500 hover:bg-grey-400 focus:shadow-outline focus:outline-none text-black py-2 px-4 rounded">
         </div>
       </div>
-    </form>
+    </form-->
+    <v-form @submit="postSample">
+      <v-container>
+        <v-row>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <v-text-field
+              v-model="sample.amount"
+              type="number"
+              label="Montant"
+              required
+            ></v-text-field>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <v-radio-group v-model="sample.moment" row>
+              <v-radio :label="radio.name" :value="radio.value" v-for="radio in items"></v-radio>
+            </v-radio-group>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="sample.date"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="sample.date"
+                  label="Picker in menu"
+                  readonly
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="sample.date" no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(sample.date)">OK</v-btn>
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+
+        </v-row>
+      </v-container>
+    </v-form>
   </div>
 </template>
 
@@ -35,8 +102,10 @@
   export default {
     data: function() {
       return {
+        items: [{value: 0, name: 'Matin'}, {value: 1, name:'Aprèm'}],
+        menu: false,
         sample: {
-          moment: 1,
+          moment: 0,
           amount: 100,
           date: new Date().toISOString().substr(0, 10)
         }

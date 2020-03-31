@@ -13,9 +13,6 @@
       </div>
       <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="lg:flex-grow">
-          <nuxt-link to="/admin/createuser" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
-            Create-user
-          </nuxt-link>
         </div>
       </div>
     </nav>
