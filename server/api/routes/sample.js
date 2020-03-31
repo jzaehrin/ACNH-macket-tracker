@@ -10,13 +10,13 @@ router.post('/', async (req, res) => {
         uuid: req.body.uuid
       }
     })
-  } catch(err) {
+  } catch(error) {
     res.status(500).send({message: "Unexpected error"})
     return
   }
 
   if(user === null) {
-    res.status(403).send("You do not have rights to create a sample");
+    res.status(403).send({message: "You do not have rights to create a sample"});
     return;
   }
 
@@ -25,23 +25,27 @@ router.post('/', async (req, res) => {
   let date = new Date(req.body.date);
   if(req.body.moment === '1')
     date.setUTCHours(12, 0, 0, 0);
+  else
+    date.setUTCHours(0, 0, 0, 0);
 
   try {
-    sample = await Sample.create({
+    sample = await db.Sample.create({
       userId: user.id,
       date: date,
       amount: req.body.amount
     })
-
-    if (sample !== null)
-      res.status(200).send("Sample correctly saved");
-    else
-      res.status(500).send("Unexpected error");
-  } catch(err) {
+  } catch(error) {
     if(error.name === 'SequelizeUniqueConstraintError')
-      res.status(403).send("You cannot modify your previous sample");
+      res.status(403).send({message: "You cannot modify your previous sample"});
+    else
+      res.status(500).send({message: "Unexpected error"});
     return
   }
+
+  if (sample !== null)
+    res.status(200).send();
+  else
+    res.status(500).send({message: "Unexpected error"});
 });
 
 module.exports = router;
