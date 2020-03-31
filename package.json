@@ -1,0 +1,26 @@
+{
+  "name": "acnh-macket-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jzaehrin/ACNH-macket-tracker.git"
+  },
+  "author": "Jonathan Zaehringer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jzaehrin/ACNH-macket-tracker/issues"
+  },
+  "homepage": "https://github.com/jzaehrin/ACNH-macket-tracker#readme",
+  "dependencies": {
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "mariadb": "^2.3.1",
+    "sequelize": "^5.21.5",
+    "uuid": "^7.0.2"
+  }
+}
