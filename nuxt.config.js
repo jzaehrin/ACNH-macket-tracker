@@ -34,8 +34,7 @@ module.exports = {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss',
+    '@nuxtjs/vuetify'
   ],
   /*
   ** Nuxt.js modules
@@ -51,7 +50,9 @@ module.exports = {
   */
   axios: {
   },
-
+  vuetify: {
+    /* module options */
+  },
   serverMiddleware: ['~/server/api/index.js'],
   //middleware: ['~/middleware/auth.js'],
   /*
