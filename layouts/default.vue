@@ -16,7 +16,9 @@
         </div>
       </div>
     </nav>
-    <nuxt />
+    <v-app>
+      <nuxt />
+    </v-app>
   </div>
 </template>
 
