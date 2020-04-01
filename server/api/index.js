@@ -7,7 +7,7 @@ const rootRoutes = require('./routes/root')
 const userRoutes = require('./routes/user')
 const sampleRoutes = require('./routes/sample')
 const samplesRoutes = require('./routes/samples')
-const userSamplesRoutes = require('./routes/userSamples')
+const usersSamplesRoutes = require('./routes/usersSamples')
 
 
 app.use(express.json())
@@ -17,5 +17,5 @@ app.use('', rootRoutes)
 app.use('/sample', sampleRoutes)
 app.use('/samples', samplesRoutes)
 app.use('/user/', userRoutes)
-app.use('/users/:uuid/samples', userSamplesRoutes)
+app.use('/users/:uuid/samples', usersSamplesRoutes)
 
