@@ -61,7 +61,7 @@
           let response = User.api().post('/api/user/signin', {uuid: uuid});
           User.insertOrUpdate({data: {response}});
         } else {
-          let response = User.api().post('/api/user/signup', {});
+          let response = User.api().get('/api/user/signup');
           User.insertOrUpdate({data: {response}});
           this.$cookies.setAll([
             {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
