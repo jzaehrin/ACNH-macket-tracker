@@ -28,7 +28,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/axios.js',
+    '~/plugins/axios',
+    '~/plugins/vuex-orm-axios'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -61,7 +62,7 @@ module.exports = {
   ** Build configuration
   */
   server: {
-    port: 3001,
+    port: 3000,
     host: '0.0.0.0'
   },
   build: {

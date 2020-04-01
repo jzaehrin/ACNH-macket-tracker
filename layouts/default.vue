@@ -39,6 +39,7 @@
 
 <script>
   const logo = require('~/assets/images/logo.png');
+  import User from "~/models/User";
   export default {
     data: () => ({
       logo: logo,
@@ -54,19 +55,18 @@
     }),
     methods: {
       init() {
-        if(this.$cookies.get('acnh-uuid')) {
-          let uuid = this.$cookies.get('acnh-uuid');
-          let data = { uuid: uuid };
-          this.$axios.$post('/api/valid', data).then((response) => {
-            console.log("Connected");
-          })
+        let uuid = this.$cookies.get('acnh-uuid');
+        if(uuid) {
+          User.insertOrUpdate({data: {uuid: uuid}});
+          let response = User.api().post('/api/user/signin', {uuid: uuid});
+          User.insertOrUpdate({data: {response}});
         } else {
-          this.$axios.$get('/api/identity').then((response) => {
-            this.$cookies.setAll([
-              {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
-              {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
-            ])
-          })
+          let response = User.api().post('/api/user/signup', {});
+          User.insertOrUpdate({data: {response}});
+          this.$cookies.setAll([
+            {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+            {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+          ])
         }
       }
     },
