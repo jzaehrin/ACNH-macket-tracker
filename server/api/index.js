@@ -17,5 +17,5 @@ app.use('', rootRoutes)
 app.use('/sample', sampleRoutes)
 app.use('/samples', samplesRoutes)
 app.use('/user/', userRoutes)
-app.use('/user/:uuid/samples', userSamplesRoutes)
+app.use('/users/:uuid/samples', userSamplesRoutes)
 
