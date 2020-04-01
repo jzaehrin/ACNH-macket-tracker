@@ -57,8 +57,7 @@
       init() {
         let uuid = this.$cookies.get('acnh-uuid');
         if(uuid) {
-          User.insertOrUpdate({data: {uuid: uuid}});
-          let response = User.api().post('/api/user/signin', {uuid: uuid});
+          let response = User.api().post('/api/user/signin', { uuid: uuid });
           User.insertOrUpdate({data: {response}});
         } else {
           let response = User.api().get('/api/user/signup');
