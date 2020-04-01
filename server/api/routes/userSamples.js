@@ -3,11 +3,12 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
   let user
+  let uuid = req.params.uuid
 
   try {
     user = await db.User.findOne({
       where: {
-        uuid: req.body.uuid
+        fake_uuid: uuid
       },
       include: ['samples']
     })
