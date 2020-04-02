@@ -16,8 +16,8 @@ export default class User extends Model {
   static fields () {
     return {
       id: this.attr(''),
-      suuid: this.attr(null),
       uuid: this.attr(''),
+      suuid: this.attr(''),
       samples: this.hasMany(Sample, 'user_id')
     }
   }

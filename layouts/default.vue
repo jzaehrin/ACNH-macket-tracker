@@ -58,25 +58,24 @@
       init() {
         let suuid = this.$cookies.get('acnh-suuid');
 
-        console.log(suuid);
         if(suuid === undefined || suuid === '') {
-          let response = User.api().get('/api/user/signup');
-          console.log(response)
-          /*User.insertOrUpdate({data: {response}}).then(() => {
-               this.initialized = true;
-           });*/
-           this.$cookies.setAll([
-             {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
-             {name: 'acnh-suuid', value: response.suuid, opts: {maxAge: process.env.COOKIE_LIFE}},
-           ])
-        } else {
-          /*let response = User.api().post('/api/user/signin', { suuid: suuid });
-          User.insertOrUpdate({data: {response}})
-            .then(() => {
+          this.$axios.$get('/api/user/signup').then((response) => {
+            User.insertOrUpdate({data: response.user}).then(() => {
               this.initialized = true;
-          });*/
+            });
+            this.$cookies.setAll([
+              {name: 'acnh-uuid', value: user.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+              {name: 'acnh-suuid', value: user.suuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+            ])
+          });
+        } else {
+          this.$axios.$post('/api/user/signin', { suuid: suuid }).then((response) => {
+            User.insertOrUpdate({data: response.user}).then(() => {
+              this.initialized = true;
+            });
+          });
         }
-      }
+      },
     },
     mounted() {
       this.init()
