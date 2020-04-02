@@ -19,12 +19,12 @@
        return User.find(this.$cookies.get('acnh-uuid'));
       },
       samples() {
-        let user = this.user
-        Sample.api().get('/api/users/'+ user.fake_uuid +'/samples');
         return Sample.all();
       }
     },
     mounted() {
+      let user = this.user
+      Sample.api().get('/api/users/'+ user.fake_uuid +'/samples');
     }
   }
 </script>
