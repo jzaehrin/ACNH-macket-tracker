@@ -23,7 +23,7 @@
 
       <v-content>
         <v-container fluid>
-          <nuxt />
+          <nuxt :v-if="initialized"/>
         </v-container>
       </v-content>
 
@@ -42,6 +42,7 @@
   import User from "~/models/User";
   export default {
     data: () => ({
+      initialized: false,
       logo: logo,
       primaryDrawer: {
         model: null,
@@ -58,10 +59,16 @@
         let uuid = this.$cookies.get('acnh-uuid');
         if(uuid) {
           let response = User.api().post('/api/user/signin', { uuid: uuid });
-          User.insertOrUpdate({data: {response}});
+          User.insertOrUpdate({data: {response}})
+            .then(() => {
+              this.initialized = true;
+          });
         } else {
           let response = User.api().get('/api/user/signup');
-          User.insertOrUpdate({data: {response}});
+          User.insertOrUpdate({data: {response}})
+            .then(() => {
+              this.initialized = true;
+          });
           this.$cookies.setAll([
             {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
             {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: process.env.COOKIE_LIFE}},

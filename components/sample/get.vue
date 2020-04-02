@@ -16,14 +16,13 @@
       }
     },
     computed: {
-      user() {
-        return User.find(this.$cookies.get('acnh-uuid'));
+      async user() {
+        return await User.find(this.$cookies.get('acnh-uuid'));
       },
-      samples() {
-        /*let fake_uuid = this.user.fake_uuid
-        Sample.api().get('/api/users/'+fake_uuid+'/samples');
-        return Sample.all();*/
-        return "cc";
+      async samples() {
+        let fake_uuid = this.user.fake_uuid
+        await Sample.api().get('/api/users/'+fake_uuid+'/samples');
+        return await Sample.all();
       }
     },
     mounted() {
