@@ -17,7 +17,7 @@ router.post('/signin', async (req, res) => {
   }
 
   if(user !== null) {
-    res.status(200).send({id: user.id, uuid: user.uuid, fake_uuid: user.fakeUuid});
+    res.status(200).send({user});
   } else {
     res.status(403).send({message: "User not found"})
   }
