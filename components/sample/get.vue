@@ -1,6 +1,6 @@
 <template>
   <div>
-    <week-chart :chartData="data" v-if="data.length > 0"></week-chart>
+    <week-chart :chartData="data" v-if="data[0] !== null"></week-chart>
     <!--div v-for="sample in user.samples">
       {{sample.date}}
     </div>
@@ -33,6 +33,7 @@
         for(let index; result.length < 12; index++) {
           result.push(null)
         }
+        console.log(result);
         return result;
       }
     },
