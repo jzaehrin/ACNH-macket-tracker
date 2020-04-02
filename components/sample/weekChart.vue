@@ -15,6 +15,11 @@
           }
         ]
       }, this.options)
-    }
+    },
+    watch: {
+      chartData: function (newChart, oldChart) {
+        this.$data._chart.update()
+      },
+    },
   }
 </script>
