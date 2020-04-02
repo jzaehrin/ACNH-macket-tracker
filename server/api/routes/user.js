@@ -32,7 +32,7 @@ router.get('/signup', async (req, res) => {
       uuid: uuidv4()
     })
   } catch(err) {
-    res.status(500).send({message: "Unexpected error s"})
+    res.status(500).send({message: "Unexpected error"})
     return
   }
 
