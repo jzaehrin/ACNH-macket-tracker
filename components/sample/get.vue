@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div>coucou {{user}} {{samples}}</div>
+    <div v-for="sample in samples">
+
+    </div>
   </div>
 </template>
 
@@ -24,7 +26,7 @@
     },
     mounted() {
       let user = this.user
-      Sample.api().get('/api/users/'+ user.fake_uuid +'/samples');
+      Sample.api().get('/api/users/'+ user.uuid +'/samples');
     }
   }
 </script>

@@ -56,9 +56,9 @@
     }),
     methods: {
       init() {
-        let uuid = this.$cookies.get('acnh-uuid');
-        if(uuid) {
-          let response = User.api().post('/api/user/signin', { uuid: uuid });
+        let suuid = this.$cookies.get('acnh-suuid');
+        if(suuid !== undefined) {
+          let response = User.api().post('/api/user/signin', { suuid: suuid });
           User.insertOrUpdate({data: {response}})
             .then(() => {
               this.initialized = true;
@@ -71,7 +71,7 @@
           });
           this.$cookies.setAll([
             {name: 'acnh-uuid', value: response.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
-            {name: 'acnh-fuuid', value: response.fake_uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+            {name: 'acnh-suuid', value: response.suuid, opts: {maxAge: process.env.COOKIE_LIFE}},
           ])
         }
       }

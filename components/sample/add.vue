@@ -117,7 +117,7 @@
           moment: this.sample.moment,
           amount: this.sample.amount,
           date: this.sample.date,
-          uuid: this.$cookies.get('acnh-uuid')
+          suuid: this.$cookies.get('acnh-suuid')
         };
         this.$axios.$post('/api/sample', data)
           .then((response) => {
