@@ -1,15 +1,17 @@
 <template>
   <div>
-    {{user}}
-    <div v-for="sample in samples">
-
+    <week-chart :data="data" v-if="data.length > 0"></week-chart>
+    <div v-for="sample in user.samples">
+      {{sample.date}}
     </div>
+    {{user}}
   </div>
 </template>
 
 <script>
   import User from "~/models/User";
-  import Sample from '~/models/Sample';
+  import Sample from "~/models/Sample";
+  import weekChart from "~/components/sample/weekChart";
   export default {
     name: "sampleGet",
     data: function() {
@@ -21,14 +23,26 @@
       user() {
         return User.query().where('uuid', this.$cookies.get('acnh-uuid')).withAllRecursive().first();
       },
-      samples() {
-        //return Sample.all();
+      data() {
+        let result = [];
+        let data = Sample.query().where('user_id', this.user.id).orderBy('date', 'desc').get();
+        for (let element of data) {
+          result.push(element.amount)
+        }
+        for(let index; result.length < 12; index++) {
+          result.push(null)
+        }
+        console.log(result);
+        return result;
       }
     },
     mounted() {
       this.$axios.$get('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples').then((response) => {
         User.insertOrUpdate({data: response.user});
       });
+    },
+    components: {
+      weekChart
     }
   }
 </script>
