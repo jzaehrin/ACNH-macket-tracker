@@ -3,7 +3,7 @@
   export default {
     extends: Line,
     mixins: [mixins.reactiveProp],
-    props: ['data'],
+    props: ['chartData', 'options'],
     mounted () {
       this.renderChart({
         labels: ['Monday am','Monday pm', 'Tuesday am', 'Tuesday pm', 'Wednesday am', 'Wednesday pm', 'Thursday am', 'Thursday pm', 'Friday am', 'Friday pm', 'Saturday am', 'Saturday pm'],
@@ -11,10 +11,10 @@
           {
             label: 'Market price of the week',
             backgroundColor: '#f87979',
-            data: this.data
+            data: this.chartData
           }
         ]
-      })
+      }, this.options)
     }
   }
 </script>

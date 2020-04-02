@@ -1,6 +1,6 @@
 <template>
   <div>
-    <week-chart :data="data" v-if="data.length > 0"></week-chart>
+    <week-chart :chartData="data" v-if="data.length > 0"></week-chart>
     <div v-for="sample in user.samples">
       {{sample.date}}
     </div>
