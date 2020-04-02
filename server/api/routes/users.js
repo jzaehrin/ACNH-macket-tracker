@@ -37,7 +37,7 @@ router.get('/:uuid/samples', async (req, res) => {
     return
   }
 
-  return res.status(200).send({user: user, sample: user.samples});
+  return res.status(200).send({user: user, samples: user.samples});
 });
 
 module.exports = router;
