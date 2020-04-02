@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   try {
     user = await db.User.findOne({
       where: {
-        uuid: req.body.uuid
+        suuid: req.body.suuid
       }
     })
   } catch(error) {

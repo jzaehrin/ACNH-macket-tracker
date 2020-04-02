@@ -19,12 +19,12 @@ const sequelize = new Sequelize('acnh_market_tracker', process.env.DB_USER, proc
 db.User = sequelize.define('user', {
   uuid: {
     type: Sequelize.STRING,
-    field: 'uuid',
+    field: 'suuid',
     allowNull: false
   },
   fakeUuid: {
     type: Sequelize.STRING,
-    field: 'fake_uuid',
+    field: 'uuid',
     allowNull: false
   }
 });
@@ -45,12 +45,14 @@ db.Sample = sequelize.define('sample', {
     indexes: [
       {
         unique: true,
-        fields: ['date', 'userId']
+        fields: ['date', 'user_id']
       }
     ]
   });
 
-db.User.hasMany(db.Sample)
+db.User.hasMany(db.Sample, {
+  foreignKey: 'user_id'
+})
 
 sequelize.sync()
 

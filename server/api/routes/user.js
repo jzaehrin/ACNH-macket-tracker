@@ -8,7 +8,7 @@ router.post('/signin', async (req, res) => {
   try {
     user = await db.User.findOne({
       where: {
-        uuid: req.body.uuid
+        suuid: req.body.suuid
       }
     })
   } catch(err) {
@@ -28,8 +28,8 @@ router.get('/signup', async (req, res) => {
 
   try {
     user = await db.User.create({
-      uuid: uuidv4(),
-      fakeUuid: uuidv4()
+      suuid: uuidv4(),
+      uuid: uuidv4()
     })
   } catch(err) {
     res.status(500).send({message: "Unexpected error"})
@@ -37,7 +37,7 @@ router.get('/signup', async (req, res) => {
   }
 
   if(user !== null) {
-    res.status(200).send({uuid: user.uuid, fake_uuid: user.fakeUuid})
+    res.status(200).send({user})
   } else {
     res.status(500).send({message: "Unexpected error"})
   }
