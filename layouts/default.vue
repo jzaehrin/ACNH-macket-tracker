@@ -64,8 +64,8 @@
               this.initialized = true;
             });
             this.$cookies.setAll([
-              {name: 'acnh-uuid', value: user.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
-              {name: 'acnh-suuid', value: user.suuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+              {name: 'acnh-uuid', value: response.user.uuid, opts: {maxAge: process.env.COOKIE_LIFE}},
+              {name: 'acnh-suuid', value: response.user.suuid, opts: {maxAge: process.env.COOKIE_LIFE}},
             ])
           });
         } else {

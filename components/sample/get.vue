@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{user}}
     <div v-for="sample in samples">
 
     </div>
@@ -18,16 +19,16 @@
     },
     computed: {
       user() {
-        //return User.find(this.$cookies.get('acnh-uuid'));
+        return User.find(this.$cookies.get('acnh-uuid'));
       },
       samples() {
-        return [];
         //return Sample.all();
       }
     },
     mounted() {
-      let user = this.user
-      //Sample.api().get('/api/users/'+ user.uuid +'/samples');
+      this.$axios.$post('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples').then((response) => {
+        console.log(response);
+      });
     }
   }
 </script>
