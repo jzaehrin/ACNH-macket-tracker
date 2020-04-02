@@ -115,7 +115,7 @@
     methods: {
       postSample: function(e) {
         e.preventDefault();
-        let user = User.find(this.$cookies.get('acnh-uuid'));
+        let user = User.query().where('uuid', this.$cookies.get('acnh-uuid')).first();
         let data = {
           moment: this.sample.moment,
           amount: this.sample.amount,

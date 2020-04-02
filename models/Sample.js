@@ -13,8 +13,7 @@ export default class Sample extends Model {
     return {
       user_id: this.attr(''),
       date: this.attr(''),
-      amount: this.attr(''),
-      user: this.belongsTo(User, 'id')
+      amount: this.attr('')
     }
   }
 }
