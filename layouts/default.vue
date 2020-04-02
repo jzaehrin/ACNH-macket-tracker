@@ -23,7 +23,7 @@
 
       <v-content>
         <v-container fluid>
-          <nuxt :v-if="initialized"/>
+          <nuxt v-if="initialized"/>
         </v-container>
       </v-content>
 
