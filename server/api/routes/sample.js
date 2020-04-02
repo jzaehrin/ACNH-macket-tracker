@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
   }
 
   if (sample !== null)
-    res.status(200).send({message: "Sample correctly added"});
+    res.status(200).send({message: "Sample correctly added", sample: sample});
   else
     res.status(500).send({message: "Unexpected error"})
 });

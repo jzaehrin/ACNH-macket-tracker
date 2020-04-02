@@ -90,6 +90,8 @@
 </template>
 
 <script>
+  import User from "~/models/User";
+  import Sample from '~/models/Sample';
   export default {
     name: "sampleAdd",
     data: function() {
@@ -113,17 +115,20 @@
     methods: {
       postSample: function(e) {
         e.preventDefault();
+        let user = User.find(this.$cookies.get('acnh-uuid'));
         let data = {
           moment: this.sample.moment,
           amount: this.sample.amount,
           date: this.sample.date,
-          suuid: this.$cookies.get('acnh-suuid')
+          suuid: user.suuid,
         };
+
         this.$axios.$post('/api/sample', data)
           .then((response) => {
             this.snackbar.text = response.message
             this.snackbar.color = 'success'
             this.snackbar.on = true
+            Sample.insertOrUpdate({data: response.sample });
         })
           .catch((error) => {
             this.snackbar.text = error.response.data.message

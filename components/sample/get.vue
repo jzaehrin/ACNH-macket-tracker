@@ -26,8 +26,10 @@
       }
     },
     mounted() {
-      this.$axios.$post('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples').then((response) => {
-        console.log(response);
+      this.$axios.$get('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples').then((response) => {
+        User.insertOrUpdate({data: response.user});
+        console.log(response.samples);
+        Sample.insertOrUpdate({data: response.samples})
       });
     }
   }
