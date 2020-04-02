@@ -11,9 +11,10 @@ export default class Sample extends Model {
   // for the generic field type. The argument is the default value.
   static fields () {
     return {
+      user_id: this.attr(''),
       date: this.attr(''),
       amount: this.attr(''),
-      user: this.belongsTo(User, 'uuid')
+      user: this.belongsTo(User, 'id')
     }
   }
 }

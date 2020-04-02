@@ -19,12 +19,12 @@ const sequelize = new Sequelize('acnh_market_tracker', process.env.DB_USER, proc
 db.User = sequelize.define('user', {
   uuid: {
     type: Sequelize.STRING,
-    field: 'suuid',
+    field: 'uuid',
     allowNull: false
   },
-  fakeUuid: {
+  suuid: {
     type: Sequelize.STRING,
-    field: 'uuid',
+    field: 'suuid',
     allowNull: false
   }
 });
