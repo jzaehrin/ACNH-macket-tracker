@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/:uuid/samples', async (req, res) => {
   let user
   let uuid = req.params.uuid
 
