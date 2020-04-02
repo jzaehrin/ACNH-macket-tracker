@@ -18,10 +18,10 @@
       user() {
        return User.find(this.$cookies.get('acnh-uuid'));
       },
-      async samples() {
-        let user = await this.user
-        await Sample.api().get('/api/users/'+ user.fake_uuid +'/samples');
-        return await Sample.all();
+      samples() {
+        let user = this.user
+        Sample.api().get('/api/users/'+ user.fake_uuid +'/samples');
+        return Sample.all();
       }
     },
     mounted() {
