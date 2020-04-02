@@ -47,6 +47,7 @@
               v-model="sample.date"
               no-title
               :max="new Date().toISOString().substr(0, 10)"
+              :allowed-dates="allowedDates"
               scrollable
             >
               <v-spacer></v-spacer>
@@ -96,6 +97,7 @@
     name: "sampleAdd",
     data: function() {
       return {
+        days: [0, 1, 2, 3, 4, 5],
         valid: false,
         items: [{value: 0, name: 'Matin'}, {value: 1, name:'Aprèm'}],
         menu: false,
@@ -113,6 +115,7 @@
       }
     },
     methods: {
+      allowedDates: val => ![6,6].includes(new Date(val).getDay()),
       postSample: function(e) {
         e.preventDefault();
         let user = User.query().where('uuid', this.$cookies.get('acnh-uuid')).first();
