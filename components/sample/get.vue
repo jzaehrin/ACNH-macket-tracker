@@ -1,7 +1,6 @@
 <template>
   <div>
-    {{user}}
-    <div>coucou {{samples}}</div>
+    <div>coucou {{user}} {{samples}}</div>
   </div>
 </template>
 
@@ -16,8 +15,8 @@
       }
     },
     computed: {
-      async user() {
-        return await User.find(this.$cookies.get('acnh-uuid'));
+      user() {
+       return User.find(this.$cookies.get('acnh-uuid'));
       },
       async samples() {
         let user = await this.user
