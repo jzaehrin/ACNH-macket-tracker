@@ -19,6 +19,45 @@
           @click.stop="primaryDrawer.model = !primaryDrawer.model"
         />
         <v-toolbar-title>Animal Crossing New Stonks</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-menu
+          v-model="profile"
+          :close-on-content-click="false"
+          :nudge-width="300"
+          offset-y
+        >
+          <template v-slot:activator="{ on }">
+            <v-avatar
+              v-on="on"
+            >
+              <v-icon>mdi-account-circle</v-icon>
+            </v-avatar>
+          </template>
+
+          <v-card>
+            <v-list>
+              <v-list-item>
+                <v-text-field
+                  :value="user.suuid"
+                  label="suuid"
+                  readonly
+                  error
+                  error-messages="It's your secret identity, never share it !"
+                  background-color="#401010"
+                ></v-text-field>
+              </v-list-item>
+              <v-list-item>
+                <v-text-field
+                  :value="user.uuid"
+                  label="uuid"
+                  readonly
+                ></v-text-field>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-menu>
       </v-app-bar>
 
       <v-content>
@@ -44,6 +83,7 @@
     data: () => ({
       initialized: false,
       logo: logo,
+      profile: false,
       primaryDrawer: {
         model: null,
         clipped: false,
@@ -53,6 +93,10 @@
       footer: {
         inset: false,
       },
+      user: {
+        suuid: 'uninitialized',
+        uuid: 'initialized'
+      }
     }),
     methods: {
       init() {
@@ -60,6 +104,7 @@
 
         if(suuid === undefined || suuid === '') {
           this.$axios.$get('/api/user/signup').then((response) => {
+            this.user = response.user
             User.insertOrUpdate({data: response.user}).then(() => {
               this.initialized = true;
             });
@@ -70,6 +115,7 @@
           });
         } else {
           this.$axios.$post('/api/user/signin', { suuid: suuid }).then((response) => {
+            this.user = response.user
             User.insertOrUpdate({data: response.user}).then(() => {
               this.initialized = true;
             });
