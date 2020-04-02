@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
   try {
     sample = await db.Sample.create({
-      userId: user.id,
+      user_id: user.id,
       date: date,
       amount: req.body.amount
     })
