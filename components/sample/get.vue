@@ -17,22 +17,40 @@
     name: "sampleGet",
     data: function() {
       return {
-
+        toto: false
       }
     },
     computed: {
       user() {
         return User.query().where('uuid', this.$cookies.get('acnh-uuid')).withAllRecursive().first();
       },
+      samples: {
+        set(val) {
+          Sample.insertOrUpdate({data: val});
+        },
+        get(){
+          return Sample.query().where('user_id', this.user.id).orderBy('date', 'desc').get();
+        }
+      },
       data() {
-        let result = [];
-        let data = Sample.query().where('user_id', this.user.id).orderBy('date', 'desc').get();
-        for (let element of data) {
-          result.push(element.amount)
+        let result = {
+          labels: ['Monday am','Monday pm', 'Tuesday am', 'Tuesday pm', 'Wednesday am', 'Wednesday pm', 'Thursday am', 'Thursday pm', 'Friday am', 'Friday pm', 'Saturday am', 'Saturday pm'],
+            datasets: [
+          {
+            label: 'Market price of the week',
+            backgroundColor: '#f87979',
+            data: Array(null, 12)
+          }
+        ]
         }
-        for(let index; result.length < 12; index++) {
-          result.push(null)
+        let data = [];
+        for (let element of this.samples) {
+          data.push(element.amount)
         }
+        for(let index; data.length < 12; index++) {
+          data.push(null)
+        }
+        result.datasets[0].data = data
         console.log(result);
         return result;
       }
@@ -40,6 +58,7 @@
     mounted() {
       this.$axios.$get('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples').then((response) => {
         User.insertOrUpdate({data: response.user});
+        this.samples = response.samples;
       });
     },
     components: {
