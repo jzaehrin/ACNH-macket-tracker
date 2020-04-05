@@ -48,6 +48,7 @@
               no-title
               :max="new Date().toISOString().substr(0, 10)"
               :allowed-dates="allowedDates"
+              :first-day-of-week="1"
               scrollable
             >
               <v-spacer></v-spacer>

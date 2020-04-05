@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto px-4">
     <v-container>
-      <sample-add></sample-add>
       <sample-get></sample-get>
+      <sample-add></sample-add>
     </v-container>
   </div>
 </template>
@@ -13,6 +13,7 @@
   export default {
     components: {
       sampleAdd,
+
       sampleGet
     }
   }

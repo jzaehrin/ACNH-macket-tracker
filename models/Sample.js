@@ -23,7 +23,6 @@ export default class Sample extends Model {
   }
 
   static getWeek(user_id, time = moment().isoWeek()) {
-    console.log("getWeek");
     return Sample.query()
       .where('user_id', user_id)
       .where((sample) => {
