@@ -116,7 +116,7 @@
       }
     },
     methods: {
-      allowedDates: val => ![6,6].includes(new Date(val).getDay()),
+      allowedDates: val =>  0 !== (new Date(val).getDay()),
       postSample: function(e) {
         e.preventDefault();
         let user = User.query().where('uuid', this.$cookies.get('acnh-uuid')).first();

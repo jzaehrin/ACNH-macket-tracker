@@ -107,7 +107,7 @@
       }
     },
     methods: {
-      allowedDates: val => ![6,6].includes(new Date(val).getDay()),
+      allowedDates: val =>  0 !== (new Date(val).getDay()),
       getSamples() {
         this.$axios.$get('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples', {
           params: {
