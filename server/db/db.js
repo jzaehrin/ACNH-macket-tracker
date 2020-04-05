@@ -81,6 +81,6 @@ db.FriendList.hasOne(db.User, {
   constraints: false
 });
 
-sequelize.sync({force: true});
+sequelize.sync();
 
 module.exports = db
