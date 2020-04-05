@@ -14,6 +14,10 @@
   import User from "~/models/User";
   import Sample from "~/models/Sample";
   import weekChart from "~/components/sample/weekChart";
+
+  const flattenDeep = require('lodash.flattendeep');
+  //import moment from 'moment';
+
   export default {
     name: "sampleGet",
     data: function() {
@@ -30,7 +34,6 @@
           Sample.insertOrUpdate({data: val});
         },
         get() {
-          console.log(Sample.getWeek(this.user.id));
           return Sample.getWeek(this.user.id);
         }
       },
@@ -45,16 +48,13 @@
           }
         ]
         }
-        let data = [];
+        let data = [[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]];
         for (let sample of this.samples) {
-          console.log(new Date(sample.date));
-          console.log(new Date(sample.date).getDay());
-          data.push(sample.amount)
+          let day = this.$moment(sample.date).day();
+          let moment = (this.$moment(sample.date).hours() < 12) ? 0 : 1;
+          data[day - 1][moment] = sample.amount;
         }
-        for(let index; data.length < 12; index++) {
-          data.push(null)
-        }
-        result.datasets[0].data = data
+        result.datasets[0].data = flattenDeep(data);
         //console.log(result);
         return result;
       }
