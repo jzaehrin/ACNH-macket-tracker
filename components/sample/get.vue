@@ -123,7 +123,8 @@
       getSamples() {
         this.$axios.$get('/api/users/'+this.$cookies.get('acnh-uuid')+'/samples', {
           params: {
-            week: this.$moment(this.date).isoWeek()
+            week: this.$moment(this.date).isoWeek(),
+            year: this.$moment(this.date).year()
           }
         }).then((response) => {
           User.insertOrUpdate({data: response.user});
