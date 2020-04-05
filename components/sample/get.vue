@@ -39,7 +39,7 @@
       </v-menu>
     </v-col>
     </v-container>
-    <week-chart :chartData="data"></week-chart>
+    <week-chart :chartData="data" :y-ticks="{min: 0, max: 1000}"></week-chart>
     <!--div v-for="sample in user.samples">
       {{sample.date}}
     </div>
