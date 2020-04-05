@@ -24,11 +24,11 @@ export default class Sample extends Model {
 
   static getWeek(user_id, time = moment().isoWeek()) {
     console.log("getWeek");
-    Sample.query()
+    return Sample.query()
       .where('user_id', user_id)
-      .where('date', (value) => {
-        return value >= moment().isoWeek(time).startOf('week').isoWeekday(1) &&
-        value < moment().isoWeek(time).endOf('week').isoWeekday(1)
+      .where((sample) => {
+        return moment(sample.date) >= moment().isoWeek(time).startOf('week').isoWeekday(1) &&
+          moment(sample.date) < moment().isoWeek(time).endOf('week').isoWeekday(1)
       })
       .orderBy('date', 'desc').get();
   }

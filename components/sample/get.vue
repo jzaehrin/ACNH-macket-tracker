@@ -49,6 +49,7 @@
         for (let sample of this.samples) {
           console.log(new Date(sample.date));
           console.log(new Date(sample.date).getDay());
+          data.push(sample.amount)
         }
         for(let index; data.length < 12; index++) {
           data.push(null)
