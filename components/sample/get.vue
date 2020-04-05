@@ -77,12 +77,16 @@
       }
     },
     computed: {
-      user() {
-        return User.query().where('uuid', this.$cookies.get('acnh-uuid')).withAllRecursive().first();
+      user: {
+        set(val) {
+          User.insertOrUpdate({data: val});
+        },
+        get() {
+          return User.query().where('uuid', this.$cookies.get('acnh-uuid')).withAllRecursive().first();
+        }
       },
       samples: {
         set(val) {
-          console.log(val);
           Sample.insertOrUpdate({data: val});
         },
         get() {
@@ -133,7 +137,7 @@
             year: this.$moment(this.date).year()
           }
         }).then((response) => {
-          User.insertOrUpdate({data: response.user});
+          this.user = response.user;
           this.samples = response.samples;
         });
       }

@@ -45,6 +45,11 @@ db.FriendList = sequelize.define('friendlist', {
     field: 'relation',
     allowNull: true,
     values: ['active', 'pending', 'deleted']
+  },
+  pseudo: {
+    type: Sequelize.STRING,
+    field: 'pseudo',
+    allowNull: true
   }
 });
 

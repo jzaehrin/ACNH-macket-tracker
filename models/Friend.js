@@ -3,12 +3,11 @@
 import Vue from 'vue';
 
 import { Model } from '@vuex-orm/core'
-import Sample from "./Sample";
-import Friend from "./Friend";
+import User from '~/models/User';
 
-export default class User extends Model {
+export default class Friend extends Model {
   // This is the name used as module name of the Vuex Store.
-  static entity = 'users'
+  static entity = 'friends'
 
   static primaryKey = 'id';
 
@@ -17,10 +16,12 @@ export default class User extends Model {
   static fields () {
     return {
       id: this.attr(''),
-      uuid: this.attr(''),
-      suuid: this.attr(''),
-      samples: this.hasMany(Sample, 'user_id', 'id'),
-      friends: this.hasMany(Friend, 'user_id1', 'id')
+      user_id1: this.attr(''),
+      user_id2: this.attr(''),
+      owner: this.belongsTo(User, 'id', 'user_id1'),
+      friend: this.hasOne(User, 'id', 'user_id2'),
+      relation: this.attr(''),
+      pseudo: this.attr('')
     }
   }
 

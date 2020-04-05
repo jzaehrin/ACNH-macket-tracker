@@ -59,42 +59,7 @@
           </v-card>
         </v-menu>
 
-        <v-menu
-          v-model="friends"
-          :close-on-content-click="false"
-          :nudge-width="300"
-          offset-y
-        >
-          <template v-slot:activator="{ on }">
-            <v-avatar
-              v-on="on"
-            >
-              <v-icon>mdi-human</v-icon>
-            </v-avatar>
-          </template>
-
-          <v-card>
-            <v-list>
-              <v-list-item>
-                <v-text-field
-                  :value="user.suuid"
-                  label="suuid"
-                  readonly
-                  error
-                  error-messages="It's your secret identity, never share it !"
-                  background-color="#401010"
-                ></v-text-field>
-              </v-list-item>
-              <v-list-item>
-                <v-text-field
-                  :value="user.uuid"
-                  label="uuid"
-                  readonly
-                ></v-text-field>
-              </v-list-item>
-            </v-list>
-          </v-card>
-        </v-menu>
+        <friends></friends>
       </v-app-bar>
 
       <v-content>
@@ -115,13 +80,13 @@
 
 <script>
   const logo = require('~/assets/images/logo.png');
+  import Friends from '~/components/menu/friends';
   import User from "~/models/User";
   export default {
     data: () => ({
       initialized: false,
       logo: logo,
       profile: false,
-      friends: false,
       primaryDrawer: {
         model: null,
         clipped: false,
@@ -167,6 +132,9 @@
     },
     created () {
       this.$vuetify.theme.dark = true
+    },
+    components: {
+      Friends
     }
   }
 </script>
