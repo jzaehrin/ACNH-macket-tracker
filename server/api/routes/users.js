@@ -40,15 +40,34 @@ router.get('/:uuid/samples', async (req, res) => {
   }
 
   let samples
-  let time = moment().isoWeek()
+  let weekNumber
+  let year = moment()
+  if (req.query.week !== undefined && req.query.week !== null) {
+    if (req.query.year !== undefined && req.query.year !== null){
+      if (isNaN(parseInt(req.query.year, 10)))
+        return res.status(404).send({message: "Year is not a number"})
+
+      year = moment().year(parseInt(req.query.year, 10))
+    }
+
+    weekNumber = parseInt(req.query.week, 10);
+
+    if (isNaN(weekNumber))
+      return res.status(404).send({message: "Week number is not a number"})
+
+    if (weekNumber < year.startOf('year').isoWeek() && weekNumber > year.endOf('year').isoWeek())
+      return res.status(404).send({message: "Week number is out of range"})
+  } else {
+    weekNumber = moment().isoWeek()
+  }
 
   try {
     samples = await db.Sample.findAll({
       where: {
         user_id: user.id,
         date: {
-          [Op.gte]: moment().isoWeek(time).startOf('week').isoWeekday(1),
-          [Op.lt]: moment().isoWeek(time).endOf('week').isoWeekday(1)
+          [Op.gte]: year.isoWeek(weekNumber).startOf('week').isoWeekday(1),
+          [Op.lt]: year.isoWeek(weekNumber).endOf('week').isoWeekday(1)
         },
       }
     })
