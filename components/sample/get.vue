@@ -39,7 +39,7 @@
       </v-menu>
     </v-col>
     </v-container>
-    <week-chart :chartData="data" :y-ticks="{min: 0, max: 1000}"></week-chart>
+    <week-chart :chartData="data" :options="chartOptions"></week-chart>
     <!--div v-for="sample in user.samples">
       {{sample.date}}
     </div>
@@ -61,7 +61,19 @@
     data: function() {
       return {
         menu: false,
-        date: new Date().toISOString().substr(0, 10)
+        date: new Date().toISOString().substr(0, 10),
+        chartOptions : {
+          customOffset: 20,
+          scales: {
+            yAxes: [{
+              ticks: {
+                Min: 0,
+                suggestedMin: 0,
+                precision: 0
+              }
+            }]
+          }
+        }
       }
     },
     computed: {
