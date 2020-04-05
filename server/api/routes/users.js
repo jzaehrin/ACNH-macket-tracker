@@ -66,8 +66,8 @@ router.get('/:uuid/samples', async (req, res) => {
       where: {
         user_id: user.id,
         date: {
-          [Op.gte]: year.isoWeek(weekNumber).startOf('week').isoWeekday(1),
-          [Op.lt]: year.isoWeek(weekNumber).endOf('week').isoWeekday(1)
+          [Op.gte]: moment(year).isoWeek(weekNumber).startOf('week').isoWeekday(1),
+          [Op.lt]: moment(year).isoWeek(weekNumber).endOf('week').isoWeekday(1)
         },
       }
     })
