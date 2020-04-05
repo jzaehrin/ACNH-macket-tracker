@@ -131,7 +131,7 @@
             this.snackbar.text = response.message
             this.snackbar.color = 'success'
             this.snackbar.on = true
-            Sample.insertOrUpdate({data: response.sample });
+            //Sample.insertOrUpdate({data: response.sample });
         })
           .catch((error) => {
             this.snackbar.text = error.response.data.message

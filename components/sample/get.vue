@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <week-chart :chartData="data"></week-chart>
     <!--div v-for="sample in user.samples">
       {{sample.date}}
@@ -28,8 +29,9 @@
         set(val) {
           Sample.insertOrUpdate({data: val});
         },
-        get(){
-          return Sample.query().where('user_id', this.user.id).orderBy('date', 'desc').get();
+        get() {
+          console.log(Sample.getWeek(this.user.id));
+          return Sample.getWeek(this.user.id);
         }
       },
       data() {
@@ -44,14 +46,15 @@
         ]
         }
         let data = [];
-        for (let element of this.samples) {
-          data.push(element.amount)
+        for (let sample of this.samples) {
+          console.log(new Date(sample.date));
+          console.log(new Date(sample.date).getDay());
         }
         for(let index; data.length < 12; index++) {
           data.push(null)
         }
         result.datasets[0].data = data
-        console.log(result);
+        //console.log(result);
         return result;
       }
     },

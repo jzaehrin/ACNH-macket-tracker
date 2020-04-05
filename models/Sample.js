@@ -1,6 +1,7 @@
 // User Model
 
 import { Model } from '@vuex-orm/core'
+const moment = require('moment')
 import User from "./User";
 
 export default class Sample extends Model {
@@ -15,5 +16,20 @@ export default class Sample extends Model {
       date: this.attr(''),
       amount: this.attr('')
     }
+  }
+
+  static insertOrUpdate(payload) {
+    return super.insertOrUpdate(payload);
+  }
+
+  static getWeek(user_id, time = moment().isoWeek()) {
+    console.log("getWeek");
+    Sample.query()
+      .where('user_id', user_id)
+      .where('date', (value) => {
+        return value >= moment().isoWeek(time).startOf('week').isoWeekday(1) &&
+        value < moment().isoWeek(time).endOf('week').isoWeekday(1)
+      })
+      .orderBy('date', 'desc').get();
   }
 }
