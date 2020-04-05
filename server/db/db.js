@@ -1,4 +1,3 @@
-
 const Sequelize = require('sequelize')
 
 let db = {}
@@ -8,6 +7,7 @@ require('dotenv').config();
 const sequelize = new Sequelize('acnh_market_tracker', process.env.DB_USER, process.env.DB_PASSWORD, {
   host: 'localhost',
   dialect: process.env.DB_TYPE,
+  logging: (process.env.DB_LOG) ? console.log : false,
 
   pool: {
     max: 5,
