@@ -29,15 +29,26 @@ router.get('/:uuid/samples', async (req, res) => {
       where: {
         uuid: uuid
       },
-      attributes: {exclude: ['suuid']},
-      include: ['samples']
+      attributes: {exclude: ['suuid']}
     })
   } catch(error) {
     res.status(500).send({message: "Unexpected error"});
     return
   }
 
-  return res.status(200).send({user: user, samples: user.samples});
+  let samples
+  try {
+    samples = await db.Sample.findAll({
+      where: {
+        user_id: user.id
+      }
+    })
+  } catch(error) {
+    res.status(500).send({message: "Unexpected error"});
+    return
+  }
+
+  return res.status(200).send({user: user, samples: samples});
 });
 
 module.exports = router;
