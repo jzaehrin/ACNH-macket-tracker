@@ -92,14 +92,19 @@
       data() {
         let result = {
           labels: ['Monday am','Monday pm', 'Tuesday am', 'Tuesday pm', 'Wednesday am', 'Wednesday pm', 'Thursday am', 'Thursday pm', 'Friday am', 'Friday pm', 'Saturday am', 'Saturday pm'],
-            datasets: [
-          {
-            label: 'Market price of the week',
-            backgroundColor: '#2ecc71',
-            data: Array(null, 12)
-          }
-        ]
-        }
+          datasets: [
+            {
+              label: 'You',
+              backgroundColor: 'rgba(26, 188, 156, .5)',
+              data: Array(null, 12)
+            },
+            {
+              label: 'Market price of the week',
+              backgroundColor: 'rgba(46, 204, 113, .5)',
+              data: Array(null, 12)
+            }
+          ]
+        };
         let data = [[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]];
         for (let sample of this.samples) {
           let day = this.$moment(sample.date).day();
@@ -107,6 +112,7 @@
           data[day - 1][moment] = sample.amount;
         }
         result.datasets[0].data = flattenDeep(data);
+        result.datasets[1].data = flattenDeep(data);
         return result;
       }
     },

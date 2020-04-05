@@ -29,6 +29,25 @@ db.User = sequelize.define('user', {
   }
 });
 
+db.FriendList = sequelize.define('friendlist', {
+  user_id1: {
+    type: Sequelize.INTEGER,
+    field: 'user_id_1',
+    allowNull: false,
+  },
+  user_id2: {
+    type: Sequelize.INTEGER,
+    field: 'user_id_2',
+    allowNull: false,
+  },
+  relation: {
+    type: Sequelize.ENUM,
+    field: 'relation',
+    allowNull: true,
+    values: ['active', 'pending', 'deleted']
+  }
+});
+
 db.Sample = sequelize.define('sample', {
     date: {
       type: Sequelize.DATE,
@@ -52,8 +71,16 @@ db.Sample = sequelize.define('sample', {
 
 db.User.hasMany(db.Sample, {
   foreignKey: 'user_id'
-})
+});
+db.User.hasMany(db.FriendList, {
+  foreignKey: 'user_id_1'
+});
+db.FriendList.hasOne(db.User, {
+  primaryKey: 'user_id_2',
+  foreignKey: 'id',
+  constraints: false
+});
 
-sequelize.sync()
+sequelize.sync({force: true});
 
 module.exports = db
