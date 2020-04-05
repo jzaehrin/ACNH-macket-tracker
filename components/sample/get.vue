@@ -86,7 +86,7 @@
           Sample.insertOrUpdate({data: val});
         },
         get() {
-          return Sample.getWeek(this.user.id);
+          return Sample.getWeek(this.user.id, this.$moment(this.date).isoWeek());
         }
       },
       data() {
