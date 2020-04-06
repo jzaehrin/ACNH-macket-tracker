@@ -24,10 +24,14 @@ router.get('/:uuid', async (req, res) => {
   try {
     friends = await db.FriendList.findAll({
       where: {
-        $or: [
+        [Op.or]: [
           {
             user_id_1: user.id,
-            relation: 'active',
+            relation: 'active'
+          },
+          {
+            user_id_1: user.id,
+            relation: 'pending'
           },
           {
             user_id_2: user.id,
@@ -60,10 +64,14 @@ router.get('/:uuid', async (req, res) => {
         required: false,
         attributes: [],
         where: {
-          $or: [
+          [Op.or]: [
             {
               user_id_1: user.id,
-              relation: 'active',
+              relation: 'active'
+            },
+            {
+              user_id_1: user.id,
+              relation: 'pending'
             },
             {
               user_id_2: user.id,
@@ -80,7 +88,7 @@ router.get('/:uuid', async (req, res) => {
   }
 
 
-  return res.status(200).send({friends: friends, users: users, pending: pending});
+  return res.status(200).send({friends: friends, users: users});
 });
 
 module.exports = router;

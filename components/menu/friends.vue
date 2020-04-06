@@ -21,7 +21,7 @@
               <v-row align="center">
                 <v-col cols="5">
                   <v-text-field
-                    v-model="addFriend.id"
+                    v-model="newFriend.id"
                     type="text"
                     label="Identifiant (uuid de l'ami)"
                     required
@@ -29,7 +29,7 @@
                 </v-col>
                 <v-col cols="5">
                   <v-text-field
-                    v-model="addFriend.pseudo"
+                    v-model="newFriend.pseudo"
                     type="text"
                     label="Pseudonyme"
                     required
@@ -93,7 +93,12 @@
                   </v-btn>
                 </span>
               </div>
-              <div v-if="friend.relation === 'pending'">
+              <div v-if="friend.relation === 'pending' && friend.user_id1 === user.id">
+                <v-icon color="orange">
+                  mdi-account-clock-outline
+                </v-icon>
+              </div>
+              <div v-else-if="friend.relation === 'pending' && friend.user_id2 === user.id">
                 <v-btn icon color="success" @click="validFriend(friend.id)">
                   <v-icon>
                     mdi-check
@@ -120,7 +125,7 @@
     data: () => {
       return {
         modal: false,
-        addFriend: {
+        newFriend: {
           id: '',
           pseudo: '',
         },
