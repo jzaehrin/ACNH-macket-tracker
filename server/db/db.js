@@ -103,6 +103,6 @@ db.User.hasMany(db.Friend, {
 
 
 
-sequelize.sync({force: true});
+sequelize.sync();
 
 module.exports = db
