@@ -29,28 +29,30 @@ db.User = sequelize.define('user', {
   }
 });
 
-db.FriendList = sequelize.define('friendlist', {
-  user_id1: {
-    type: Sequelize.INTEGER,
-    field: 'user_id_1',
-    allowNull: false,
-  },
-  user_id2: {
-    type: Sequelize.INTEGER,
-    field: 'user_id_2',
-    allowNull: false,
-  },
+db.Friend = sequelize.define('friend', {
   relation: {
     type: Sequelize.ENUM,
     field: 'relation',
-    allowNull: true,
     values: ['active', 'pending', 'deleted']
   },
-  pseudo: {
+  user1_username: {
     type: Sequelize.STRING,
-    field: 'pseudo',
+    field: 'applicant_username',
+    allowNull: true
+  },
+  user2_username: {
+    type: Sequelize.STRING,
+    field: 'asked_username',
     allowNull: true
   }
+},
+  {
+  indexes: [
+    {
+      unique: true,
+      fields: ['applicant_id', 'asked_id']
+    }
+  ]
 });
 
 db.Sample = sequelize.define('sample', {
@@ -74,18 +76,33 @@ db.Sample = sequelize.define('sample', {
     ]
   });
 
+db.Friend.belongsTo(db.User, {
+  as: 'applicant',
+  foreignKey: 'applicant_id'
+});
+
+db.Friend.belongsTo(db.User, {
+  as: 'asked',
+  foreignKey: 'asked_id'
+});
+
+
 db.User.hasMany(db.Sample, {
   foreignKey: 'user_id'
 });
-db.User.hasMany(db.FriendList, {
-  foreignKey: 'user_id_1'
-});
-db.FriendList.hasOne(db.User, {
-  primaryKey: 'user_id_2',
-  foreignKey: 'id',
-  constraints: false
+
+db.User.hasMany(db.Friend, {
+  foreignKey: 'applicant_id',
+  as: 'applicant',
 });
 
-sequelize.sync();
+db.User.hasMany(db.Friend, {
+  foreignKey: 'asked_id',
+  as: 'asked',
+});
+
+
+
+sequelize.sync({force: true});
 
 module.exports = db

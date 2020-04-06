@@ -3,83 +3,34 @@ const router = express.Router()
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
-router.get('/:uuid', async (req, res) => {
+router.get('/:suuid', async (req, res) => {
   let user
-  let uuid = req.params.uuid
+  let suuid = req.params.suuid
 
   try {
     user = await db.User.findOne({
       where: {
-        uuid: uuid
+        suuid: suuid
       },
-      attributes: {exclude: ['suuid']}
-    })
-  } catch(error) {
-    res.status(500).send({message: "Unexpected error"});
-    return
-  }
-
-  let friends
-
-  try {
-    friends = await db.FriendList.findAll({
-      where: {
-        [Op.or]: [
-          {
-            user_id_1: user.id,
-            relation: 'active'
-          },
-          {
-            user_id_1: user.id,
-            relation: 'pending'
-          },
-          {
-            user_id_2: user.id,
-            relation: 'pending'
-          }
-        ]
-      },
-
-      //include: ['users']
-    })
-  } catch(error) {
-    console.log(error)
-    res.status(500).send({message: "Unexpected error"});
-    return
-  }
-
-  let users
-
-  try {
-    users = await db.User.findAll({
-      where: {
-        id: {
-          [Op.not]: user.id
-        }
-      },
-      attributes: {exclude: ['suuid', 'friendlists']},
-      include: [{
-        model: db.FriendList,
-        as: 'friendlists',
-        required: false,
-        attributes: [],
-        where: {
-          [Op.or]: [
-            {
-              user_id_1: user.id,
-              relation: 'active'
-            },
-            {
-              user_id_1: user.id,
-              relation: 'pending'
-            },
-            {
-              user_id_2: user.id,
-              relation: 'pending'
-            }
-          ]
+      include: [
+        {
+          model: db.Friend,
+          as: 'applicant',
+          include: [{
+            model: db.User,
+            as: 'asked',
+            attributes: ['uuid']
+          }]
         },
-      }]
+        {
+          model: db.Friend,
+          as: 'asked',
+          include: [{
+            model: db.User,
+            as: 'applicant',
+            attributes: ['uuid']
+          }]
+        }]
     })
   } catch(error) {
     console.log(error)
@@ -87,8 +38,53 @@ router.get('/:uuid', async (req, res) => {
     return
   }
 
+  console.log(user.applicant[0].asked)
 
-  return res.status(200).send({friends: friends, users: users});
+  return res.status(200).send({applicants: user.applicant, askeds: user.asked});
+});
+
+router.post('/:suuid', async (req, res) => {
+  let user
+  let suuid = req.params.suuid
+
+  try {
+    user = await db.User.findOne({
+      where: {
+        suuid: suuid
+      }
+    })
+  } catch(error) {
+    res.status(500).send({message: "Unexpected error"});
+    return
+  }
+
+  let asked
+
+  try {
+    asked = await db.User.findOne({
+      where: {
+        uuid: req.body.uuid
+      }
+    })
+  } catch(error) {
+    res.status(500).send({message: "Unexpected error"});
+    return
+  }
+
+  let friend
+
+  try {
+    friend = await db.Friend.create({
+      applicant_id: user.id,
+      asked_id: asked.id,
+      relation: 'pending'
+    })
+  } catch(error) {
+    res.status(500).send({message: "Unexpected error"});
+    return
+  }
+
+  return res.status(200).send();
 });
 
 module.exports = router;
