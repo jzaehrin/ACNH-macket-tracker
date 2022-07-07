@@ -20,7 +20,7 @@
     "express": "^4.16.4",
     "lodash.flattendeep": "^4.4.0",
     "mariadb": "^2.3.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mysql2": "^2.1.0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
